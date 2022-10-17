@@ -1,0 +1,19 @@
+ version: '3.8'
+ networks:
+  devaten-mongodb-agent:
+    name: devaten-mongodb-agent
+    
+ services:
+ 
+   onpremise-mongodbagent-container:
+     image: devaten/on-premises-mongodb-agent
+     container_name: onpremise-mongodbagent-container
+     restart: unless-stopped
+     ports:
+       - "8117:8117"
+     environment:
+       - spring.activemq.broker-url=tcp://127.0.0.1:61616
+     volumes:
+       - ./h2:/opt/h2-data:rw
+     networks:
+       - devaten-mongodb-agent
